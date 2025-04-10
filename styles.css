@@ -1,12 +1,70 @@
+body {
+    margin: 3rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h2 {
+    margin: 2px 0;
+}
+
 main {
+    border: 1px solid black;
     width: 100%;
     margin: 1rem auto;
+    display: flex;
+    gap: 21px;
+    justify-content: center;
+    padding: 12px;
+    width: fit-content;
 }
 
 button {
     padding: 3rem 1rem;
+    width: 80px;
+    height: 200px;
     border-radius: 0px;
     border: none;
     background-color: black;
     color: white;
+}
+
+.options {
+    display: flex;
+    gap: 12px;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    border: 1px solid black;
+    width: fit-content;
+}
+
+.screen {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: orange;
+    font-size: 1.5rem;
+}
+
+.transpose_btns {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    button {
+        width: auto;
+        height: auto;
+        font-size: 2rem;
+        padding: 0.5rem 2rem;
+    }
 }
