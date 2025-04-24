@@ -3,6 +3,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: brown;
 }
 
 h2 {
@@ -10,24 +11,54 @@ h2 {
 }
 
 main {
-    border: 1px solid black;
     width: 100%;
     margin: 1rem auto;
     display: flex;
-    gap: 21px;
+    gap: 6px;
     justify-content: center;
     padding: 12px;
     width: fit-content;
 }
 
+.keys-black {
+    gap: 16px;
+}
+
 button {
-    padding: 3rem 1rem;
-    width: 80px;
+    padding: 1rem;
+    width: 60px;
     height: 200px;
-    border-radius: 0px;
     border: none;
     background-color: black;
-    color: white;
+    color: black;
+    border-radius: 0 0 3px 3px;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    text-align: center;
+}
+
+#loose {
+    background-color: transparent;
+}
+
+.keys-black {
+    transform: translateY(-241px);
+
+    button {
+        width: 50px;
+        height: 140px;
+        border-radius: 0 0 6px 6px;
+        color: white;
+    }
+}
+
+
+.keys-white {
+
+    button {
+        background-color: white;
+    }
 }
 
 .options {

@@ -92,7 +92,6 @@ document.addEventListener('keypress', (event) => {
 transpose_number.innerText = transpose
 // transpose_key.innerText = keys[transpose]
 
-
 transpose_up.addEventListener('click', (e) => {
     if (transpose < keys.length - 1) {
         transpose += 1
