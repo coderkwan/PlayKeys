@@ -1,11 +1,32 @@
-let one = document.getElementById("1")
-let two = document.getElementById("2")
-let three = document.getElementById("3")
-let four = document.getElementById("4")
-let five = document.getElementById("5")
-let six = document.getElementById("6")
-let seven = document.getElementById("7")
-let eight = document.getElementById("8")
+let c1 = document.getElementById("C_one")
+let d1 = document.getElementById("D_one")
+let e1 = document.getElementById("E_one")
+let f1 = document.getElementById("F_one")
+let g1 = document.getElementById("G_one")
+let a1 = document.getElementById("A_one")
+let b1 = document.getElementById("B_one")
+
+let c2 = document.getElementById("C_two")
+let d2 = document.getElementById("D_two")
+let e2 = document.getElementById("E_two")
+let f2 = document.getElementById("F_two")
+let g2 = document.getElementById("G_two")
+let a2 = document.getElementById("A_two")
+let b2 = document.getElementById("B_two")
+
+let db1 = document.getElementById("Db_one")
+let fb1 = document.getElementById("Eb_one")
+let gb1 = document.getElementById("Gb_one")
+let ab1 = document.getElementById("Ab_one")
+let bb1 = document.getElementById("Bb_one")
+
+let db2 = document.getElementById("Db_two")
+let fb2 = document.getElementById("Eb_two")
+let gb2 = document.getElementById("Gb_two")
+let ab2 = document.getElementById("Ab_two")
+let bb2 = document.getElementById("Bb_two")
+
+let buttons = [c1, d1, e1, f1, g1, a1, b1, c2, d2, e2, f2, g2, a2, b2, db1, fb1, gb1, ab1, bb1, db2, fb2, gb2, ab2, bb2]
 
 let transpose_up = document.getElementById("transpose_up")
 let transpose_down = document.getElementById("transpose_down")
@@ -27,6 +48,7 @@ let Gb = {one: new Audio("./piano/Gb3.mp3"), two: new Audio("./piano/Gb4.mp3"), 
 let Ab = {one: new Audio("./piano/Ab3.mp3"), two: new Audio("./piano/Ab4.mp3"), three: new Audio("./piano/Ab5.mp3")}
 let Bb = {one: new Audio("./piano/Bb3.mp3"), two: new Audio("./piano/Bb4.mp3"), three: new Audio("./piano/Bb5.mp3")}
 
+
 // Scales
 let C_ = [C.two, D.two, E.two, F.two, G.two, A.two, B.two, C.three]
 let Db_ = [Db.two, Eb.two, F.two, Gb.two, Ab.two, Bb.two, C.three, Db.three]
@@ -42,55 +64,88 @@ let Bb_ = [Bb.two, C.three, D.three, Eb.three, F.three, G.three, A.three, Bb.thr
 let B_ = [B.two, Db.three, Eb.three, E.three, Gb.three, Ab.three, Bb.three, B.three]
 
 
-let keys = [C_, Db_, D_, Eb_, E_, F_, Gb_, G_, Ab_, A_, Bb_, B_]
+let keys = [{key: C_, name: 'C'}, {key: Db_, name: "C#"}, {key: D_, name: "D"}, {key: Eb_, name: "D#"}, {key: E_, name: "E"}, {key: F_, name: "F"}, {key: Gb_, name: "F#"}, {key: G_, name: "G"}, {key: Ab_, name: "G#"}, {key: A_, name: "A"}, {key: Bb_, name: "A#"}, {key: B_, name: "B"},]
 
+let key_names = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C"]
 let transpose = 0;
 
+transpose_key.innerText = key_names[transpose]
+transpose_number.innerText = transpose
+
+
+buttons.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+
+        let id = e.target.id
+        let key, octave = ""
+
+        if (id.length == 5) {
+            key = id.substr(0, 1)
+            octave = id.substr(2)
+            changeColor(btn, "white")
+        } else {
+            key = id.substr(0, 2)
+            octave = id.substr(3)
+            changeColor(btn, "black")
+        }
+
+        eval(key)[octave].play()
+
+    })
+})
+
 document.addEventListener('keypress', (event) => {
-    let notes = keys[transpose]
+    let notes = keys[transpose].key
     let num = Number(event.key)
     if (num) {
         switch (num) {
             case 1:
-                changeColor(one)
                 notes[num - 1].play()
                 break
             case 2:
-                changeColor(two)
                 notes[num - 1].play()
                 break
             case 3:
-                changeColor(three)
                 notes[num - 1].play()
                 break
             case 4:
-                changeColor(four)
                 notes[num - 1].play()
                 break
             case 5:
-                changeColor(five)
                 notes[num - 1].play()
                 break
             case 6:
-                changeColor(six)
                 notes[num - 1].play()
                 break
             case 7:
-                changeColor(seven)
                 notes[num - 1].play()
                 break
             case 8:
-                changeColor(eight)
                 notes[num - 1].play()
                 break
             default:
         }
+    } else if (event.key == "[") {
+        if (transpose > 0) {
+            transpose -= 1
+        } else {
+            transpose = keys.length - 1
+        }
+
+        transpose_number.innerText = transpose
+        transpose_key.innerText = key_names[transpose]
+    } else if (event.key == "]") {
+        if (transpose < keys.length - 1) {
+            transpose += 1
+        } else {
+            transpose = 0
+        }
+        transpose_number.innerText = transpose
+        transpose_key.innerText = key_names[transpose]
     }
 })
 
 
-transpose_number.innerText = transpose
-// transpose_key.innerText = keys[transpose]
 
 transpose_up.addEventListener('click', (e) => {
     if (transpose < keys.length - 1) {
@@ -99,6 +154,7 @@ transpose_up.addEventListener('click', (e) => {
         transpose = 0
     }
     transpose_number.innerText = transpose
+    transpose_key.innerText = key_names[transpose]
 })
 
 transpose_down.addEventListener('click', (e) => {
@@ -109,11 +165,12 @@ transpose_down.addEventListener('click', (e) => {
     }
 
     transpose_number.innerText = transpose
+    transpose_key.innerText = key_names[transpose]
 })
 
-function changeColor(btn) {
+function changeColor(btn, to_color) {
     btn.style.backgroundColor = "gray"
     setTimeout(() =>
-        btn.style.backgroundColor = "black", 200)
+        btn.style.backgroundColor = to_color, 200)
 }
 
